@@ -1,0 +1,43 @@
+.metricsTabs {
+  display: flex;
+  position: relative;
+  .metricsTab {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 98px;
+    height: 48px;
+    span {
+      transition-duration: var(--animation-duration-m);
+      transition-property: transform;
+      transition-timing-function: var(--animation-easing-quad);
+      font-weight: 400;
+    }
+    button::after {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateY(4px) translateX(-50%) scale(0);
+      transform-origin: center;
+      transition-duration: var(--animation-duration-m);
+      transition-property: transform;
+      transition-timing-function: var(--animation-easing-quad);
+      border-radius: var(--border-radius-sm);
+      background-color: var(--primary-color);
+      width: 10px;
+      height: 10px;
+      content: '';
+    }
+    .tabActive {
+      span {
+        transform: translateY(-4px);
+        font-weight: 600;
+      }
+      &::after {
+        transform: translateY(0) translateX(-50%) scale(1);
+      }
+    }
+  }
+}

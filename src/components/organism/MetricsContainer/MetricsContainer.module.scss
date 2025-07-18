@@ -1,0 +1,31 @@
+.metrics {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+  .metricsTitle {
+    display: flex;
+    position: sticky;
+    top: var(--header-height);
+    align-items: center;
+    z-index: 1;
+    background-color: var(--off-white-color);
+    padding: 0 var(--spacing-xl);
+    width: 100%;
+    min-height: 48px;
+    font-size: var(--font-size-m);
+  }
+  .metricsAmount {
+    display: flex;
+    align-items: flex-end;
+    .metricsAmountLargeText {
+      font-weight: 200;
+      font-size: var(--font-size-xl);
+    }
+    .metricsAmountSmallText {
+      padding-bottom: 4px;
+      font-size: var(--font-size-lg);
+    }
+  }
+}

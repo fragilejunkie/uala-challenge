@@ -1,0 +1,13 @@
+.transactionsHeader {
+  display: flex;
+  position: sticky;
+  top: var(--header-height);
+  align-items: center;
+  z-index: 1;
+  background-color: var(--off-white-color);
+  .transactionsTitle {
+    flex-grow: 1;
+    padding-left: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+  }
+}

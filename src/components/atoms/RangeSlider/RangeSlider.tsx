@@ -1,0 +1,112 @@
+'use client'
+
+import * as Slider from '@radix-ui/react-slider'
+import styles from './RangeSlider.module.scss'
+import { useEffect, useState } from 'react'
+
+interface RangeSliderProps {
+  /** Canonical min–max range coming from context */
+  value: [number, number]
+  /** Update handler (slider drag or committed input) */
+  onValueChange: (range: [number, number]) => void
+}
+
+export default function RangeSlider({
+  value,
+  onValueChange,
+}: RangeSliderProps) {
+  /* Local, transient strings while the user edits the inputs */
+  const [inputValues, setInputValues] = useState<[string, string]>([
+    String(value[0]),
+    String(value[1]),
+  ])
+
+  /* Sync text boxes whenever canonical value changes externally */
+  useEffect(() => {
+    setInputValues([String(value[0]), String(value[1])])
+  }, [value])
+
+  /* ---------------------------------------- */
+  /* Handlers                                 */
+  /* ---------------------------------------- */
+  function handleInputChange(
+    e: React.ChangeEvent<HTMLInputElement>,
+    idx: 0 | 1
+  ) {
+    const txt = e.target.value // may be '', '7', etc.
+    setInputValues((prev) => {
+      const copy: [string, string] = [...prev]
+      copy[idx] = txt
+      return copy
+    })
+  }
+
+  function commitInput(idx: 0 | 1) {
+    const num = Number(inputValues[idx])
+    if (Number.isFinite(num)) {
+      const clamped = Math.max(0, Math.min(2000, num))
+      const next: [number, number] = [...value]
+      next[idx] = clamped
+      if (next[0] > next[1]) next[idx === 0 ? 1 : 0] = clamped // keep order
+      onValueChange(next)
+    } else {
+      // revert to canonical if blank or invalid
+      setInputValues([String(value[0]), String(value[1])])
+    }
+  }
+
+  /* ---------------------------------------- */
+  /* Render                                   */
+  /* ---------------------------------------- */
+  return (
+    <form className={styles.sliderForm}>
+      <Slider.Root
+        className={styles.Root}
+        value={value} /* controlled slider */
+        min={0}
+        max={2000}
+        step={1}
+        minStepsBetweenThumbs={1}
+        onValueChange={onValueChange} /* thumbs → context */
+      >
+        <Slider.Track className={styles.Track}>
+          <Slider.Range className={styles.Range} />
+        </Slider.Track>
+        <Slider.Thumb className={styles.Thumb} aria-label="Rango mínimo" />
+        <Slider.Thumb className={styles.Thumb} aria-label="Rango máximo" />
+      </Slider.Root>
+
+      <div className={styles.sliderLegends}>
+        {/* Min input */}
+        <div className={styles.sliderLegend}>
+          <span>Monto Mínimo</span>
+          <div className={styles.sliderInput}>
+            <span>$</span>
+            <input
+              type="number"
+              value={inputValues[0]}
+              onChange={(e) => handleInputChange(e, 0)}
+              onBlur={() => commitInput(0)}
+              onKeyDown={(e) => e.key === 'Enter' && commitInput(0)}
+            />
+          </div>
+        </div>
+
+        {/* Max input */}
+        <div className={styles.sliderLegend}>
+          <span>Monto Máximo</span>
+          <div className={styles.sliderInput}>
+            <span>$</span>
+            <input
+              type="number"
+              value={inputValues[1]}
+              onChange={(e) => handleInputChange(e, 1)}
+              onBlur={() => commitInput(1)}
+              onKeyDown={(e) => e.key === 'Enter' && commitInput(1)}
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  )
+}

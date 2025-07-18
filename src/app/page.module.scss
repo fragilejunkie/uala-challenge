@@ -1,0 +1,9 @@
+.main {
+  padding-top: var(--header-height);
+  background: var(--off-white-color);
+  color: var(--gray-color-dark);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  min-height: 100dvh;
+}

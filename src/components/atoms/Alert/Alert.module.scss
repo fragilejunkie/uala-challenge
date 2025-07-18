@@ -1,0 +1,23 @@
+.alert {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  left: 40px;
+  box-shadow: var(--elevation-shadow-long);
+  border-radius: var(--border-radius-xxs);
+  padding: var(--spacing-xs);
+  color: var(--white-color);
+  font-size: var(--font-size-m);
+}
+
+.success {
+  background-color: var(--secondary-color);
+}
+
+.warning {
+  background-color: var(--primary-color-dark);
+}
+
+.error {
+  background-color: var(--tertiary-color);
+}

@@ -1,0 +1,80 @@
+.sliderForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxs);
+  .sliderLegends {
+    display: flex;
+    justify-content: space-between;
+    .sliderLegend {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      border: 1px solid var(--primary-color);
+      border-radius: var(--border-radius-xs);
+      padding: var(--spacing-xxxs) var(--spacing-xs);
+      span {
+        color: var(--gray-color);
+        font-size: var(--font-size-xxs);
+      }
+      .sliderInput {
+        display: flex;
+        align-items: center;
+        span {
+          display: flex;
+          align-items: center;
+          height: 20px;
+          color: var(--gray-color-darker);
+          font-size: var(--font-size-sm);
+        }
+        input {
+          display: flex;
+          border: none;
+          border-radius: var(--border-radius-xxs);
+          background: unset;
+          padding: 2px;
+          max-width: 70px;
+          color: var(--gray-color-darker);
+          font-size: var(--font-size-sm);
+          &:focus {
+            outline: none;
+            background-color: var(--primary-color-light);
+          }
+        }
+      }
+    }
+  }
+}
+
+.Root {
+  display: flex;
+  position: relative;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+  touch-action: none;
+  user-select: none;
+}
+
+.Track {
+  position: relative;
+  flex-grow: 1;
+  border-radius: 9999px;
+  background-color: var(--primary-color-light);
+  height: 3px;
+}
+
+.Range {
+  position: absolute;
+  border-radius: 9999px;
+  background-color: var(--primary-color);
+  height: 100%;
+}
+
+.Thumb {
+  display: block;
+  box-shadow: var(--elevation-shadow-long);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--primary-color);
+  width: 20px;
+  height: 20px;
+}

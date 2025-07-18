@@ -1,0 +1,14 @@
+.noResults {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xl);
+  .noResultsText {
+    color: var(--gray-color-light);
+    font-style: var(--font-size-sm);
+    line-height: 140%;
+    text-align: center;
+  }
+}

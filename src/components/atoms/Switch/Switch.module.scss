@@ -1,0 +1,31 @@
+.switch {
+  display: flex;
+  position: relative;
+  align-items: center;
+  transition-duration: var(--animation-duration-m);
+  transition-property: background-color;
+  transition-timing-function: var(--animation-easing-cubic);
+  border-radius: var(--border-radius-m);
+  background-color: var(--gray-color-light);
+  min-width: 44px;
+  height: 24px;
+  .switchIndicator {
+    display: block;
+    position: absolute;
+    left: var(--spacing-xxxs);
+    transition-duration: var(--animation-duration-m);
+    transition-property: left;
+    transition-timing-function: var(--animation-easing-cubic);
+    border-radius: 50%;
+    background: var(--white-color);
+    width: 16px;
+    height: 16px;
+  }
+
+  &[data-checked='true'] {
+    background-color: var(--primary-color);
+    .switchIndicator {
+      left: calc(100% - 20px);
+    }
+  }
+}

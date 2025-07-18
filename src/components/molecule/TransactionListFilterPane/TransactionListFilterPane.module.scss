@@ -1,0 +1,93 @@
+.transactionListFilterPane {
+  display: flex;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  flex-direction: column;
+  transform: translateX(-100%);
+  z-index: var(--zindex-overlay);
+  transition-duration: var(--animation-duration-lg);
+  transition-property: transform;
+  transition-timing-function: var(--animation-easing-cubic);
+  background-color: var(--off-white-color);
+  padding-top: var(--header-height);
+  width: 100dvw;
+  height: 100dvh;
+  overflow-y: scroll;
+  &.transactionListFilterPaneActive {
+    transform: translateX(0);
+  }
+  .backButton {
+    margin-left: var(--spacing-xs);
+    width: fit-content;
+    height: 48px;
+    min-height: 48px;
+    span {
+      font-size: var(--font-size-m);
+    }
+  }
+  .transactionFilterPaneApplyButton {
+    position: sticky;
+    bottom: var(--spacing-m);
+    left: var(--spacing-m);
+    box-shadow: var(--elevation-shadow-long);
+    width: calc(100% - 40px);
+    span {
+      font-size: var(--font-size-m);
+    }
+  }
+  .transactionFilterPaneList {
+    display: flex;
+    position: relative;
+    flex-grow: 1;
+    flex-direction: column;
+    padding: 0 var(--spacing-xxl) var(--spacing-xxl);
+    .transactionFilterPaneListHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      .transactionFilterPaneListHeaderTitle {
+        font-size: var(--font-size-m);
+      }
+      .clearButton {
+        span {
+          font-size: var(--font-size-m);
+        }
+      }
+    }
+    .cardContainer,
+    .installmentContainer,
+    .methodContainer {
+      display: flex;
+      gap: var(--spacing-xs);
+      padding-bottom: var(--spacing-xs);
+      overflow-x: scroll;
+    }
+    .filterContainer {
+      transition-duration: var(--animation-duration-m);
+      transition-property: height;
+      transition-timing-function: var(--animation-easing-sine);
+      height: 0px;
+      overflow: hidden;
+      &[data-ispicker='true'] {
+        display: flex;
+        justify-content: center;
+        transition-duration: var(--animation-duration-m);
+        transition-property: height;
+        transition-timing-function: var(--animation-easing-sine);
+      }
+      &[data-isactive='true'] {
+        height: 42px;
+        &[data-ispicker='true'] {
+          height: 344px;
+        }
+        &[data-isrange='true'] {
+          height: 85px;
+        }
+      }
+    }
+  }
+}
