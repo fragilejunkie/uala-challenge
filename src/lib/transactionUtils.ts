@@ -37,20 +37,19 @@ export function formatCurrency(
 export function splitCurrencyParts(
   formattedCurrency: string,
 ): [string, string] {
-  // Remove any non-breaking space that Intl places after the symbol
   const cleaned = formattedCurrency.replace(/\s/g, '');
   const [integerPart, decimalPart = '00'] = cleaned.split(',');
   return [integerPart, decimalPart];
 }
 
 function getPeriodStart(period: TransactionPeriod, now: Date = new Date()): Date {
-  const start = new Date(now); // copy
-  start.setHours(0, 0, 0, 0);  // zero the clock
+  const start = new Date(now);
+  start.setHours(0, 0, 0, 0);  
 
   if (period === 'daily') return start;
 
   if (period === 'weekly') {
-    const dayOfWeek = start.getDay();          // 0 = Sunday
+    const dayOfWeek = start.getDay();
     start.setDate(start.getDate() - dayOfWeek);
     return start;
   }

@@ -14,10 +14,6 @@ import {
 } from '@/lib/transactionUtils'
 import { DateRange } from 'react-day-picker'
 
-/* ------------------------------------------------------------------ */
-/* 1. Context shape                                                    */
-/* ------------------------------------------------------------------ */
-
 type CardSelection = CardType[]
 type MethodSelection = PaymentMethodType[]
 
@@ -45,16 +41,9 @@ interface TransactionFilterContextValue {
   resetAmountRange: () => void
 }
 
-/* ------------------------------------------------------------------ */
-/* 2. Create context with sensible default (only used outside provider)*/
-/* ------------------------------------------------------------------ */
 const TransactionFilterContext = createContext<
   TransactionFilterContextValue | undefined
 >(undefined)
-
-/* ------------------------------------------------------------------ */
-/* 3. Provider                                                         */
-/* ------------------------------------------------------------------ */
 
 interface ProviderProps {
   transactions: Transaction[]
@@ -80,16 +69,13 @@ export function TransactionFilterProvider({
   const installmentOptions = uniqueInstallments(transactions)
 
   function toggleCard(card: CardType) {
-    setSelectedCards(
-      (prev) =>
-        prev.includes(card)
-          ? prev.filter((c) => c !== card) // remove
-          : [...prev, card] // add
+    setSelectedCards((prev) =>
+      prev.includes(card) ? prev.filter((c) => c !== card) : [...prev, card]
     )
   }
 
   function resetCards() {
-    setSelectedCards([]) // back to "Todas"
+    setSelectedCards([])
   }
 
   function toggleMethod(method: PaymentMethodType) {
@@ -102,7 +88,7 @@ export function TransactionFilterProvider({
   }
 
   function resetMethods() {
-    setSelectedMethods([]) // back to "Todas"
+    setSelectedMethods([])
   }
 
   function toggleInstallment(installment: number) {
@@ -130,34 +116,28 @@ export function TransactionFilterProvider({
     () =>
       transactions
         .filter((transaction) => {
-          /* 1. past‑only guard */
           const updatedAt = new Date(transaction.updatedAt)
           if (updatedAt > new Date()) return false
 
-          /* 2. card filter */
           if (selectedCards.length && !selectedCards.includes(transaction.card))
             return false
 
-          /* 3. method filter */
           if (
             selectedMethods.length &&
             !selectedMethods.includes(transaction.paymentMethod)
           )
             return false
 
-          /* 4. installments filter */
           if (
             selectedInstallments.length &&
             !selectedInstallments.includes(transaction.installments)
           )
             return false
 
-          /* 5. amount‑range filter */
           const [minAmount, maxAmount] = amountRange // ← new
           if (transaction.amount < minAmount || transaction.amount > maxAmount)
             return false
 
-          /* 6. date‑range filter */
           if (selectedDates && selectedDates.from) {
             const rangeStart = new Date(selectedDates.from)
             rangeStart.setHours(0, 0, 0, 0)
@@ -181,7 +161,7 @@ export function TransactionFilterProvider({
       selectedCards,
       selectedMethods,
       selectedInstallments,
-      amountRange, // ← dependency added
+      amountRange,
       selectedDates,
     ]
   )
@@ -243,9 +223,6 @@ export function TransactionFilterProvider({
   )
 }
 
-/* ------------------------------------------------------------------ */
-/* 4. Hook for easy consumption                                        */
-/* ------------------------------------------------------------------ */
 export function useTransactionFilters() {
   const context = useContext(TransactionFilterContext)
   if (!context) {

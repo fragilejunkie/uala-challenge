@@ -5,9 +5,7 @@ import styles from './RangeSlider.module.scss'
 import { useEffect, useState } from 'react'
 
 interface RangeSliderProps {
-  /** Canonical min–max range coming from context */
   value: [number, number]
-  /** Update handler (slider drag or committed input) */
   onValueChange: (range: [number, number]) => void
 }
 
@@ -15,20 +13,15 @@ export default function RangeSlider({
   value,
   onValueChange,
 }: RangeSliderProps) {
-  /* Local, transient strings while the user edits the inputs */
   const [inputValues, setInputValues] = useState<[string, string]>([
     String(value[0]),
     String(value[1]),
   ])
 
-  /* Sync text boxes whenever canonical value changes externally */
   useEffect(() => {
     setInputValues([String(value[0]), String(value[1])])
   }, [value])
 
-  /* ---------------------------------------- */
-  /* Handlers                                 */
-  /* ---------------------------------------- */
   function handleInputChange(
     e: React.ChangeEvent<HTMLInputElement>,
     idx: 0 | 1
@@ -47,27 +40,23 @@ export default function RangeSlider({
       const clamped = Math.max(0, Math.min(2000, num))
       const next: [number, number] = [...value]
       next[idx] = clamped
-      if (next[0] > next[1]) next[idx === 0 ? 1 : 0] = clamped // keep order
+      if (next[0] > next[1]) next[idx === 0 ? 1 : 0] = clamped
       onValueChange(next)
     } else {
-      // revert to canonical if blank or invalid
       setInputValues([String(value[0]), String(value[1])])
     }
   }
 
-  /* ---------------------------------------- */
-  /* Render                                   */
-  /* ---------------------------------------- */
   return (
     <form className={styles.sliderForm}>
       <Slider.Root
         className={styles.Root}
-        value={value} /* controlled slider */
+        value={value}
         min={0}
         max={2000}
         step={1}
         minStepsBetweenThumbs={1}
-        onValueChange={onValueChange} /* thumbs → context */
+        onValueChange={onValueChange}
       >
         <Slider.Track className={styles.Track}>
           <Slider.Range className={styles.Range} />
@@ -77,7 +66,6 @@ export default function RangeSlider({
       </Slider.Root>
 
       <div className={styles.sliderLegends}>
-        {/* Min input */}
         <div className={styles.sliderLegend}>
           <span>Monto Mínimo</span>
           <div className={styles.sliderInput}>
@@ -92,7 +80,6 @@ export default function RangeSlider({
           </div>
         </div>
 
-        {/* Max input */}
         <div className={styles.sliderLegend}>
           <span>Monto Máximo</span>
           <div className={styles.sliderInput}>
