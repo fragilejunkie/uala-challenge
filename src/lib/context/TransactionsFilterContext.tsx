@@ -1,13 +1,6 @@
 'use client'
 
-import {
-  createContext,
-  useContext,
-  useState,
-  useMemo,
-  ReactNode,
-  useTransition,
-} from 'react'
+import { createContext, useContext, useState, useMemo, ReactNode } from 'react'
 import {
   TransactionPeriod,
   Transaction,
@@ -72,8 +65,6 @@ export function TransactionFilterProvider({
   transactions,
   children,
 }: ProviderProps) {
-  const [isPending, startTransition] = useTransition()
-
   const defaultAmountRange: [number, number] = [0, 2000]
 
   const [period, setPeriod] = useState<TransactionPeriod>('weekly') // default to 'daily'
