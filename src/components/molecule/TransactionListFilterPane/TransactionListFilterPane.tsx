@@ -193,14 +193,14 @@ export default function TransactionListFilterPane({
               const isAllTag = opt.value === 'all'
 
               const selected = isAllTag
-                ? selectedCards.length === 0 // “Todas” is active when array empty
-                : selectedCards.includes(opt.value as CardType) // card tag active when included
+                ? selectedCards.length === 0
+                : selectedCards.includes(opt.value as CardType)
 
               const handleSelect = () => {
                 if (isAllTag) {
-                  resetCards() // clear selection
+                  resetCards()
                 } else {
-                  toggleCard(opt.value as CardType) // add/remove this card
+                  toggleCard(opt.value as CardType)
                 }
               }
 
@@ -267,10 +267,7 @@ export default function TransactionListFilterPane({
           data-isactive={openRows.amount}
           data-isrange
         >
-          <RangeSlider
-            value={amountRange} // controlled
-            onValueChange={setAmountRange} // thumbs → context
-          />
+          <RangeSlider value={amountRange} onValueChange={setAmountRange} />
         </div>
         <FilterRow
           text="Métodos de cobro"
@@ -284,14 +281,14 @@ export default function TransactionListFilterPane({
               const isAllTag = opt.value === 'all'
 
               const selected = isAllTag
-                ? selectedMethods.length === 0 // “Todas” is active when array empty
-                : selectedMethods.includes(opt.value as PaymentMethodType) // card tag active when included
+                ? selectedMethods.length === 0
+                : selectedMethods.includes(opt.value as PaymentMethodType)
 
               const handleSelect = () => {
                 if (isAllTag) {
-                  resetMethods() // clear selection
+                  resetMethods()
                 } else {
-                  toggleMethod(opt.value as PaymentMethodType) // add/remove this card
+                  toggleMethod(opt.value as PaymentMethodType)
                 }
               }
 

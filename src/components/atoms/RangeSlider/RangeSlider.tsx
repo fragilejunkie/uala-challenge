@@ -26,7 +26,7 @@ export default function RangeSlider({
     e: React.ChangeEvent<HTMLInputElement>,
     idx: 0 | 1
   ) {
-    const txt = e.target.value // may be '', '7', etc.
+    const txt = e.target.value
     setInputValues((prev) => {
       const copy: [string, string] = [...prev]
       copy[idx] = txt

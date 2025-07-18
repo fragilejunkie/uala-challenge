@@ -7,8 +7,8 @@ export interface Transaction {
   amount: number;
   card: CardType;
   installments: number;
-  createdAt: string;   // ISO-8601; parse to Date where needed
-  updatedAt: string;   // ISO-8601
+  createdAt: string;  
+  updatedAt: string;   
   paymentMethod: PaymentMethodType;
 }
 

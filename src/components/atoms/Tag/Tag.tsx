@@ -14,7 +14,7 @@ interface TagProps {
 export default function Tag({ text, value, selected, onSelect }: TagProps) {
   function handleClick(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
-    onSelect(value) // pass value upward; parent decides selection
+    onSelect(value)
   }
   return (
     <button

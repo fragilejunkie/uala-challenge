@@ -54,7 +54,6 @@ function getPeriodStart(period: TransactionPeriod, now: Date = new Date()): Date
     return start;
   }
 
-  // monthly
   start.setDate(1);
   return start;
 }
@@ -76,13 +75,12 @@ export function filterTransactions(
     if (selectedDates) {
       const { from, to } = selectedDates;
 
-      // Require both ends; otherwise treat as no range filter
       if (from && to) {
         const rangeStart = new Date(from);
-        rangeStart.setHours(0, 0, 0, 0);              // start‑of‑day
+        rangeStart.setHours(0, 0, 0, 0); 
 
         const rangeEnd = new Date(to);
-        rangeEnd.setHours(23, 59, 59, 999);           // end‑of‑day
+        rangeEnd.setHours(23, 59, 59, 999);
 
         if (updatedAt < rangeStart || updatedAt > rangeEnd) return false;
       }

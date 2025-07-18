@@ -1,4 +1,3 @@
-// src/components/molecules/MetricsTabs/MetricsTabs.tsx
 'use client'
 
 import { useState } from 'react'

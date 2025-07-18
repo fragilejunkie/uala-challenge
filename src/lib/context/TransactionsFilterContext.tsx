@@ -56,7 +56,7 @@ export function TransactionFilterProvider({
 }: ProviderProps) {
   const defaultAmountRange: [number, number] = [0, 2000]
 
-  const [period, setPeriod] = useState<TransactionPeriod>('weekly') // default to 'daily'
+  const [period, setPeriod] = useState<TransactionPeriod>('weekly')
   const [selectedCards, setSelectedCards] = useState<CardSelection>([])
   const [selectedMethods, setSelectedMethods] = useState<MethodSelection>([])
   const [selectedInstallments, setSelectedInstallments] = useState<number[]>([])
@@ -79,11 +79,10 @@ export function TransactionFilterProvider({
   }
 
   function toggleMethod(method: PaymentMethodType) {
-    setSelectedMethods(
-      (prev) =>
-        prev.includes(method)
-          ? prev.filter((m) => m !== method) // remove
-          : [...prev, method] // add
+    setSelectedMethods((prev) =>
+      prev.includes(method)
+        ? prev.filter((m) => m !== method)
+        : [...prev, method]
     )
   }
 
@@ -92,11 +91,10 @@ export function TransactionFilterProvider({
   }
 
   function toggleInstallment(installment: number) {
-    setSelectedInstallments(
-      (prev) =>
-        prev.includes(installment)
-          ? prev.filter((i) => i !== installment) // remove
-          : [...prev, installment] // add
+    setSelectedInstallments((prev) =>
+      prev.includes(installment)
+        ? prev.filter((i) => i !== installment)
+        : [...prev, installment]
     )
   }
 
@@ -134,7 +132,7 @@ export function TransactionFilterProvider({
           )
             return false
 
-          const [minAmount, maxAmount] = amountRange // ← new
+          const [minAmount, maxAmount] = amountRange
           if (transaction.amount < minAmount || transaction.amount > maxAmount)
             return false
 
@@ -174,7 +172,7 @@ export function TransactionFilterProvider({
         selectedMethods,
         selectedInstallments,
         amountRange,
-        selectedDates, // ← pass through
+        selectedDates,
       }),
     [
       baseTransactions,
@@ -183,7 +181,7 @@ export function TransactionFilterProvider({
       selectedMethods,
       selectedInstallments,
       amountRange,
-      selectedDates, // ← dependency
+      selectedDates,
     ]
   )
 
