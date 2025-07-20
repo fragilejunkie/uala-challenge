@@ -1,0 +1,176 @@
+import {
+  Transaction,
+  CardType,
+  PaymentMethodType,
+  TransactionPeriod,
+} from '@/types/transaction'
+import { DateRange } from 'react-day-picker'
+
+export interface TransactionFilters {
+  period: TransactionPeriod
+  selectedCards: CardType[]
+  selectedMethods: PaymentMethodType[]
+  selectedInstallments: number[]
+  selectedDates: DateRange | undefined
+  amountRange: [number, number]
+}
+
+export function sumTransactions(transactions: Transaction[]): number {
+  return transactions.reduce(
+    (runningTotal, transaction) => runningTotal + transaction.amount,
+    0
+  )
+}
+
+export function uniqueInstallments(transactions: Transaction[]): number[] {
+  return [
+    ...new Set(transactions.map((transactions) => transactions.installments)),
+  ]
+}
+
+export function formatCurrency(
+  value: number,
+  locale: string = 'es-AR',
+  currency: string = 'ARS'
+): string {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: 2,
+  }).format(value)
+}
+
+export function splitCurrencyParts(
+  formattedCurrency: string
+): [string, string] {
+  const cleaned = formattedCurrency.replace(/\s/g, '')
+  const [integerPart, decimalPart = '00'] = cleaned.split(',')
+  return [integerPart, decimalPart]
+}
+
+function getPeriodStart(
+  period: TransactionPeriod,
+  now: Date = new Date()
+): Date {
+  const start = new Date(now)
+  start.setHours(0, 0, 0, 0)
+
+  if (period === 'daily') return start
+
+  if (period === 'weekly') {
+    const dayOfWeek = start.getDay()
+    start.setDate(start.getDate() - dayOfWeek)
+    return start
+  }
+
+  start.setDate(1)
+  return start
+}
+
+export function formatTransactionPeriod(
+  period: TransactionPeriod,
+  now: Date = new Date()
+): string {
+  const locale = 'es-AR'
+  const start = getPeriodStart(period, now)
+  const formatter = new Intl.DateTimeFormat(locale, {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  })
+
+  const fromString = formatter.format(start)
+  const toString = formatter.format(now)
+
+  if (period === 'daily') {
+    return toString
+  }
+
+  return `${fromString} — ${toString}`
+}
+
+export function selectedDatesString(selectedDates: DateRange | undefined) {
+  if (!selectedDates?.from) return null
+
+  const fromString = selectedDates.from.toLocaleDateString('es-AR', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+  })
+
+  if (
+    selectedDates?.to &&
+    selectedDates.from.getTime() !== selectedDates.to.getTime()
+  ) {
+    const toString = selectedDates.to.toLocaleDateString('es-AR', {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+    })
+    return `${fromString} — ${toString}`
+  }
+
+  return fromString
+}
+
+export function filterTransactions(
+  transactions: Transaction[],
+  filters: TransactionFilters,
+  nowOverride?: Date
+): Transaction[] {
+  const {
+    period,
+    selectedCards,
+    selectedMethods,
+    selectedInstallments,
+    selectedDates,
+    amountRange,
+  } = filters
+
+  const now = nowOverride ?? new Date()
+  const periodStart = getPeriodStart(period, now)
+  const [minAmount, maxAmount] = amountRange
+
+  return transactions.filter((transaction) => {
+    const updatedAt = new Date(transaction.updatedAt)
+
+    if (selectedDates) {
+      const { from, to } = selectedDates
+
+      if (from && to) {
+        const rangeStart = new Date(from)
+        rangeStart.setHours(0, 0, 0, 0)
+
+        const rangeEnd = new Date(to)
+        rangeEnd.setHours(23, 59, 59, 999)
+
+        if (updatedAt < rangeStart || updatedAt > rangeEnd) return false
+      }
+    } else {
+      if (updatedAt < periodStart || updatedAt > now) return false
+    }
+
+    if (selectedCards.length && !selectedCards.includes(transaction.card)) {
+      return false
+    }
+
+    if (
+      selectedMethods.length &&
+      !selectedMethods.includes(transaction.paymentMethod)
+    ) {
+      return false
+    }
+
+    if (
+      selectedInstallments.length &&
+      !selectedInstallments.includes(transaction.installments)
+    ) {
+      return false
+    }
+
+    if (transaction.amount < minAmount || transaction.amount > maxAmount)
+      return false
+
+    return true
+  })
+}
