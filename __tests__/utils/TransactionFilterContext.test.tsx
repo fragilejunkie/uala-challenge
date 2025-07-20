@@ -12,7 +12,7 @@ import {
 /* ------------------------------------------------------------------ */
 /* 1.  Minimal mock data                                               */
 /* ------------------------------------------------------------------ */
-const mockTx: Transaction[] = [
+const mockTransactions: Transaction[] = [
   {
     id: '1',
     amount: 100,
@@ -44,7 +44,7 @@ const mockTx: Transaction[] = [
 
 /* Helper wrapper so renderHook gets the provider */
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <TransactionFilterProvider transactions={mockTx}>
+  <TransactionFilterProvider transactions={mockTransactions}>
     {children}
   </TransactionFilterProvider>
 )

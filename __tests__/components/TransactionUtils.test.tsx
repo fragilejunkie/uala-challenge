@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import {
   sumTransactions,
   uniqueInstallments,
@@ -8,7 +12,7 @@ import {
   TransactionFilters,
   filterTransactions,
 } from '@/lib/transactionUtils'
-import { Transaction } from '../src/types/transaction'
+import { Transaction } from '../../src/types/transaction'
 
 const mockTransactions: Transaction[] = [
   {

@@ -1,5 +1,5 @@
-import nextJest from 'next/jest.js';
-const createJestConfig = nextJest({ dir: './' });
+import nextJest from 'next/jest.js'
+const createJestConfig = nextJest({ dir: './' })
 
 export default createJestConfig({
   testEnvironment: 'jest-environment-jsdom',
@@ -9,9 +9,10 @@ export default createJestConfig({
 
   // stub out SCSS/CSS modules and static files
   moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1', // maps @ to your src directory
     '\\.(scss|css)$': 'identity-obj-proxy',
     '\\.(svg|png)$': '<rootDir>/__mocks__/fileMock.js',
   },
 
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-});
+})
