@@ -4,7 +4,7 @@ import * as Slider from '@radix-ui/react-slider'
 import styles from './RangeSlider.module.scss'
 import { useEffect, useState } from 'react'
 
-interface RangeSliderProps {
+export interface RangeSliderProps {
   value: [number, number]
   onValueChange: (range: [number, number]) => void
 }

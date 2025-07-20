@@ -3,7 +3,7 @@ import styles from './Calendar.module.scss'
 import { ReactNode } from 'react'
 import { es } from 'react-day-picker/locale'
 
-interface CalendarProps {
+export interface CalendarProps {
   selectedDate: DateRange | undefined
   setSelectedDate: (range: DateRange | undefined) => void
   footer: ReactNode | string
