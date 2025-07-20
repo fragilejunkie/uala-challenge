@@ -58,6 +58,53 @@ function getPeriodStart(period: TransactionPeriod, now: Date = new Date()): Date
   return start;
 }
 
+export function formatTransactionPeriod(
+  period: TransactionPeriod,
+  now: Date = new Date()
+): string {
+
+  const locale = "es-AR"
+  const start = getPeriodStart(period, now);
+  const formatter = new Intl.DateTimeFormat(locale, {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+
+  const fromString = formatter.format(start);
+  const toString = formatter.format(now);
+
+  if (period === 'daily') {
+    return toString;
+  }
+
+  return `${fromString} — ${toString}`;
+}
+
+export function selectedDatesString(selectedDates: DateRange | undefined) {
+    if (!selectedDates?.from) return null
+
+    const fromString = selectedDates.from.toLocaleDateString('es-AR', {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+    })
+
+    if (
+      selectedDates?.to &&
+      selectedDates.from.getTime() !== selectedDates.to.getTime()
+    ) {
+      const toString = selectedDates.to.toLocaleDateString('es-AR', {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+      })
+      return `${fromString} — ${toString}`
+    }
+
+    return fromString
+}
+
 export function filterTransactions(
   transactions: Transaction[],
   filters: TransactionFilters, 

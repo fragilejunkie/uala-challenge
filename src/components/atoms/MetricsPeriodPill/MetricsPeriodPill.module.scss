@@ -1,0 +1,9 @@
+.metricsPeriodPill {
+  border-radius: var(--border-radius-m);
+  background-color: var(--primary-color-light);
+  padding: var(--spacing-xxs) var(--spacing-xs);
+  height: fit-content;
+  .metricsPeriodPillText {
+    font-size: var(--font-size-xs);
+  }
+}

@@ -5,7 +5,7 @@ import styles from './MetricsContainer.module.scss'
 import Button from '@/components/atoms/Button/Button'
 import MetricsTabs from '@/components/molecule/MetricsTabs/MetricsTabs'
 import { useTransactionFilters } from '@/lib/context/TransactionsFilterContext'
-import MetricsCustomTitle from '@/components/atoms/MetricsCustomTitle/MetricsCustomTitle'
+import MetricsPeriodPill from '@/components/atoms/MetricsPeriodPill/MetricsPeriodPill'
 
 export default function MetricsContainer() {
   const { total, selectedDates } = useTransactionFilters()
@@ -14,9 +14,12 @@ export default function MetricsContainer() {
 
   return (
     <div className={styles.metrics}>
-      <h2 className={styles.metricsTitle}>Tus cobros</h2>
+      <div className={styles.metricsTitleContainer}>
+        <h2 className={styles.metricsTitle}>Tus cobros</h2>
+        <MetricsPeriodPill />
+      </div>
       {selectedDates ? (
-        <MetricsCustomTitle selectedDates={selectedDates} />
+        <span className={styles.customTitle}>Total</span>
       ) : (
         <MetricsTabs />
       )}

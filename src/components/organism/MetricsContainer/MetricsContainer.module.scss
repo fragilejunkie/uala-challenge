@@ -4,17 +4,24 @@
   justify-content: center;
   align-items: center;
   gap: var(--spacing-sm);
-  .metricsTitle {
+  .metricsTitleContainer {
     display: flex;
     position: sticky;
     top: var(--header-height);
+    justify-content: space-between;
     align-items: center;
     z-index: 1;
     background-color: var(--off-white-color);
-    padding: 0 var(--spacing-xl);
+    padding: 0 var(--spacing-sm) 0 var(--spacing-xl);
     width: 100%;
     min-height: 48px;
-    font-size: var(--font-size-m);
+    .metricsTitle {
+      font-size: var(--font-size-m);
+    }
+  }
+  .customTitle {
+    color: var(--gray-color);
+    font-weight: 600;
   }
   .metricsAmount {
     display: flex;
