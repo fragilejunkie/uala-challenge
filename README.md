@@ -61,6 +61,12 @@ Arrancar la versión estática:
   npm run start
 ```
 
+Testear:
+
+```bash
+  npm run test
+```
+
 ## Documentación
 
 - [NextJS](https://nextjs.org/docs)
@@ -70,6 +76,7 @@ Arrancar la versión estática:
 - [Prettier](https://prettier.io/)
 - [RadixUI | Slider](https://www.radix-ui.com/primitives/docs/components/slider)
 - [React Day Picker](https://daypicker.dev/)
+- [Jest](https://jestjs.io/)
 
 ## Links
 
@@ -100,7 +107,7 @@ Una vez que terminé con la estructura base del contexto, vi que el fetch estaba
 
 ### Panel de filtros
 
-El siguiente paso fue desarrollar el elemento más complejo de la app, TransactionListFilterPane, o el overlay que contiene los distintos filtros disponibles. 
+El siguiente paso fue desarrollar el elemento más complejo de la app, TransactionListFilterPane, o el overlay que contiene los distintos filtros disponibles.
 Para esto comencé con su estructura base y su management de estado para ver si aparecía o no, en primera instancia mantuve un condicional con su useState pero esto traía algunos issues a nivel presentación, por lo cual decidí mantenerlo escondido y hacerlo aparecer a través de estilos y una transición; tal vez es un poco menos óptimo, pero sin querer meterme muy profundo y agregar más librerías como GSAP por ejemplo, lo hace más prolijo y utilizable.
 
 Continué expandiendo algunos átomos y generando los useState que mantienen el estado de la UI con respecto a sus distintos tipos de filtro, y elegí empezar con los distintos paneles que tienen información que me era simple de conseguir o ya estaba expuesta en algún lugar de la app, como las Tarjetas, Métodos de Pago y Cuotas. Estos tres paneles utilizan un patrón parecido sino igual a nivel presentación (Tags) y su filtrado fue relativamente directo, ya que sus relaciones ya estaban presentes y a mano en el contexto.
@@ -121,9 +128,12 @@ La app se ve bastante cercana al diseño con algunas mejoras desde el lado de UX
 
 Las métricas generales desde Vercel son buenas, tiene LPC: 1.96s, el componente que más tarda en renderear es el total en las métricas - 0 en CLS - 240/250ms en INP al cambiar de periodo, esto es afectado por el tiempo de animación más que nada y puede ser optimizado relativamente rápido. Las métricas de Lighthouse también son buenas, 92 Performance, 89 Accessiblity, 96 Best Practices y 100 de SEO, lo cual es normal en una microapp; pero en todos los casos, las mejoras que podrían aplicarse ya las nombré en algún otro momento en este readme.
 
+Como últimas pasadas estoy integrando tests unitarios en los puntos críticos del sistema, si bien en esta instancia es algo que estoy resolviendo al final, es algo que con otra estructura y un equipo alrededor tal vez solucionaría on the go, a medida que se vayan resolviendo componentes puntuales para poder darles más contexto a mis compañeros y no romper la integración de componentes en una app.
+
+También me separé un poco del diseño para darle más información de contexto al usuario con respecto a cuando selecciona un periodo custom de tiempo, y a que ventana de tiempo se refiere cuando elige alguno ed los filtros por default de la app.
+
 ## ¿Qué mejoras a futuro aplicaría?
 
-- Integrar tests para todos los componentes: Es algo que me encantaría poder haber hecho, pero no llegué con el tiempo disponible, posiblemente agregue por lo menos alguno durante el finde.
 - Instancia de loading para los componentes: Esto está presente en el diseño, pero elegí dejarlo para una instancia final ya que al tener un tiempo de carga bastante rápido es algo que no iba a afectar la UX. En el caso de crear un componente en un sistema más grande y complejo, posiblemente sea algo que desarrolle como segundo paso, después de definir el layout y estilo y antes de conectar la data al mismo.
 - Descarga de un PDF con respecto a un rango de fechas: Infiero que en este caso, la idea es bajar un PDF de las operaciones con el rango de fechas que el usuario quiera, esto me requiere buscar alguna librería y leer documentación al respecto, me hubiera encantado pero no llegué con el tiempo disponible. Existe el átomo de Alert, que fue una de las primeras cosas que hice en el caso de que llegara pero no se dió.
 - Discusión continua con el equipo de diseño para mejoras de sus entregables y su librería de uso: El archivo de Figma que se entrega con el challenge es confuso y en varias instancias mal armado (mal uso de autolayout, la mala construcción lleva a no tener información cohesiva o coherente con respecto a spacings, uso de distintas variables de diseño, etc); no llega al standard normal de un archivo que se pueda considerar SSOT y eso empuja a discusiones entre areas, y diferencias entre lo desarrollado y lo diseñado (en este caso elegí seguir mi instinto con algunas cosas y me separé del archivo de diseño en cuestiones que considero fallos o huecos entre UX, UI y FE).
@@ -132,5 +142,6 @@ Las métricas generales desde Vercel son buenas, tiene LPC: 1.96s, el componente
 - Checkear donde es que estoy fallando el hydration, si bien esto no genera ningún issue importante en la app, en su build o en su deploy, hay algún nesting raro de tags que no veo pero seguramente sea fácil de encontrar.
 
 ### Gracias por leer
-[Mariano Nicolás Alfonso Colonna](https://www.linkedin.com/in/seuil/)
-[Portfolio](https://www.seuil.info/es)
+
+- [Mariano Nicolás Alfonso Colonna](https://www.linkedin.com/in/seuil/)
+- [Portfolio](https://www.seuil.info/es)
