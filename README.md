@@ -77,6 +77,7 @@ Testear:
 - [RadixUI | Slider](https://www.radix-ui.com/primitives/docs/components/slider)
 - [React Day Picker](https://daypicker.dev/)
 - [Jest](https://jestjs.io/)
+- [jspdf](https://www.npmjs.com/package/jspdf)
 
 ## Links
 
@@ -128,14 +129,15 @@ La app se ve bastante cercana al diseño con algunas mejoras desde el lado de UX
 
 Las métricas generales desde Vercel son buenas, tiene LPC: 1.96s, el componente que más tarda en renderear es el total en las métricas - 0 en CLS - 240/250ms en INP al cambiar de periodo, esto es afectado por el tiempo de animación más que nada y puede ser optimizado relativamente rápido. Las métricas de Lighthouse también son buenas, 92 Performance, 89 Accessiblity, 96 Best Practices y 100 de SEO, lo cual es normal en una microapp; pero en todos los casos, las mejoras que podrían aplicarse ya las nombré en algún otro momento en este readme.
 
-Como últimas pasadas estoy integrando tests unitarios en los puntos críticos del sistema, si bien en esta instancia es algo que estoy resolviendo al final, es algo que con otra estructura y un equipo alrededor tal vez solucionaría on the go, a medida que se vayan resolviendo componentes puntuales para poder darles más contexto a mis compañeros y no romper la integración de componentes en una app.
+Como últimas pasadas estoy integrando tests unitarios en los puntos críticos del sistema, si bien en esta instancia es algo que estoy resolviendo al final, es algo que con otra estructura y un equipo alrededor tal vez solucionaría on the go, a medida que se vayan resolviendo componentes puntuales para poder darles más contexto a mis compañeros, poder agarrar bugs antes de que se deployen, darme más contexto de que estoy armando y no romper la integración de componentes en la app.
 
 También me separé un poco del diseño para darle más información de contexto al usuario con respecto a cuando selecciona un periodo custom de tiempo, y a que ventana de tiempo se refiere cuando elige alguno ed los filtros por default de la app.
+
+Agregué en última instancia la descarga de una lista de operaciones dentro del rango de fechas que elija el usuario en formato PDF, en este punto me quedaría checkear si no se devuelve un rango de fechas con entries para mostrar la alerta (existe ya el átomo desde casi el principio del desarrollo, solo no llegué a hacer esta validación)
 
 ## ¿Qué mejoras a futuro aplicaría?
 
 - Instancia de loading para los componentes: Esto está presente en el diseño, pero elegí dejarlo para una instancia final ya que al tener un tiempo de carga bastante rápido es algo que no iba a afectar la UX. En el caso de crear un componente en un sistema más grande y complejo, posiblemente sea algo que desarrolle como segundo paso, después de definir el layout y estilo y antes de conectar la data al mismo.
-- Descarga de un PDF con respecto a un rango de fechas: Infiero que en este caso, la idea es bajar un PDF de las operaciones con el rango de fechas que el usuario quiera, esto me requiere buscar alguna librería y leer documentación al respecto, me hubiera encantado pero no llegué con el tiempo disponible. Existe el átomo de Alert, que fue una de las primeras cosas que hice en el caso de que llegara pero no se dió.
 - Discusión continua con el equipo de diseño para mejoras de sus entregables y su librería de uso: El archivo de Figma que se entrega con el challenge es confuso y en varias instancias mal armado (mal uso de autolayout, la mala construcción lleva a no tener información cohesiva o coherente con respecto a spacings, uso de distintas variables de diseño, etc); no llega al standard normal de un archivo que se pueda considerar SSOT y eso empuja a discusiones entre areas, y diferencias entre lo desarrollado y lo diseñado (en este caso elegí seguir mi instinto con algunas cosas y me separé del archivo de diseño en cuestiones que considero fallos o huecos entre UX, UI y FE).
 - Mejorar y alinear los nombres, props y usos de componentes con respecto a las aclaraciones disponibles en los entregables de diseño
 - Aplicar mejores ARIA-labels y hacer que la microapp pase cualquier clase de tests de WCAG y a11y. Al ser una app plena de mobile y un challenge, lo desestimé pero es algo que suma cuando está bien armado y genera una muy buena estructura a nivel código y diseño cuando se tiene en cuenta.
