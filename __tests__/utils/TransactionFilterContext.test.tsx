@@ -2,6 +2,11 @@
  * @jest-environment jsdom
  */
 
+beforeAll(() => {
+  jest.useFakeTimers()
+  jest.setSystemTime(new Date('2023-10-29T00:00:00Z'))
+})
+
 import { renderHook, act } from '@testing-library/react'
 import { Transaction } from '@/types/transaction'
 import {

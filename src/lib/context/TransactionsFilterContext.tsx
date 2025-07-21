@@ -39,6 +39,10 @@ interface TransactionFilterContextValue {
   amountRange: [number, number]
   setAmountRange: (range: [number, number]) => void
   resetAmountRange: () => void
+  downloadTransactions: Transaction[]
+  selectedDownloadDates: DateRange | undefined
+  setSelectedDownloadDates: (range: DateRange | undefined) => void
+  resetDownloadDates: () => void
 }
 
 const TransactionFilterContext = createContext<
@@ -63,6 +67,10 @@ export function TransactionFilterProvider({
   const [selectedDates, setSelectedDates] = useState<DateRange | undefined>(
     undefined
   )
+  const [selectedDownloadDates, setSelectedDownloadDates] = useState<
+    DateRange | undefined
+  >(undefined)
+
   const [amountRange, setAmountRange] =
     useState<[number, number]>(defaultAmountRange)
 
@@ -108,6 +116,10 @@ export function TransactionFilterProvider({
 
   function resetAmountRange() {
     setAmountRange(defaultAmountRange)
+  }
+
+  function resetDownloadDates() {
+    setSelectedDownloadDates(undefined)
   }
 
   const baseTransactions = useMemo(
@@ -185,6 +197,31 @@ export function TransactionFilterProvider({
     ]
   )
 
+  const downloadTransactions = useMemo(() => {
+    return transactions
+      .filter((transaction) => {
+        const updatedAt = new Date(transaction.updatedAt)
+
+        if (selectedDownloadDates && selectedDownloadDates.from) {
+          const rangeStart = new Date(selectedDownloadDates.from)
+          rangeStart.setHours(0, 0, 0, 0)
+
+          const rangeEnd = selectedDownloadDates.to
+            ? new Date(selectedDownloadDates.to)
+            : new Date()
+          rangeEnd.setHours(23, 59, 59, 999)
+
+          if (updatedAt < rangeStart || updatedAt > rangeEnd) return false
+        }
+
+        return true
+      })
+      .sort(
+        (a, b) =>
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+      )
+  }, [transactions, selectedDownloadDates])
+
   const total = useMemo(
     () => sumTransactions(visibleTransactions),
     [visibleTransactions]
@@ -212,6 +249,10 @@ export function TransactionFilterProvider({
     amountRange,
     setAmountRange,
     resetAmountRange,
+    downloadTransactions,
+    setSelectedDownloadDates,
+    selectedDownloadDates,
+    resetDownloadDates,
   }
 
   return (

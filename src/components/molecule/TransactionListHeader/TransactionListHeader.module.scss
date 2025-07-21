@@ -10,4 +10,51 @@
     padding-left: var(--spacing-sm);
     font-size: var(--font-size-sm);
   }
+  .downloadCalendar {
+    display: none;
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: var(--spacing-xs);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition-duration: var(--animation-duration-m);
+    transition-property: top, opacity;
+    transition-timing-function: var(--animation-easing-quad);
+    background-color: var(--white-color);
+    padding: var(--spacing-m) var(--spacing-sm);
+    max-width: 283px;
+    pointer-events: none;
+    &[data-isactive='true'] {
+      top: var(--spacing-xxl);
+      opacity: 1;
+      pointer-events: unset;
+    }
+    .downloadHeader {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      padding: 0 0 var(--spacing-xs);
+      .iconContainer {
+        width: 20px;
+        height: 20px;
+        img {
+          width: auto;
+          height: auto;
+        }
+      }
+      .downloadText {
+        flex-grow: 1;
+        font-weight: 600;
+        font-size: var(--font-size-sm);
+      }
+    }
+    .downloadFooter {
+      display: flex;
+      align-items: flex-end;
+      gap: var(--spacing-xxs);
+    }
+  }
 }
