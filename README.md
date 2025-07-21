@@ -16,7 +16,7 @@ La aplicación deberá permitir que el usuario:
 - [x]  El rango del monto puede ir desde $0 hasta $2000
 - [x]  La lista de posibles tarjetas, cuotas y métodos de cobro se encuentra en la respuesta de la API provista
 - [x]  Se pueden usar dos o más filtros en simultáneo
-- [ ]  Opcional: Pueda exportar transacciones mediante un rango de fechas
+- [x]  Opcional: Pueda exportar transacciones mediante un rango de fechas
 
 ### Criterios de evaluación
 
