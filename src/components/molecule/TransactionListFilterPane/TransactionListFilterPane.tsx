@@ -165,6 +165,7 @@ export default function TransactionListFilterPane({
           data-ispicker
         >
           <Calendar
+            label="Custom Date Filter"
             selectedDate={selectedDates}
             setSelectedDate={setDates}
             footer={

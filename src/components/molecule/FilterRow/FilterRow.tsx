@@ -24,7 +24,7 @@ export default function FilterRow({
         <Icon iconName={iconName} />
       </div>
       <span className={styles.filterText}>{text}</span>
-      <Switch state={state} onChange={onToggle} />
+      <Switch state={state} onChange={onToggle} label={iconName} />
     </div>
   )
 }

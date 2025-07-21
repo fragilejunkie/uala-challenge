@@ -7,15 +7,18 @@ export interface CalendarProps {
   selectedDate: DateRange | undefined
   setSelectedDate: (range: DateRange | undefined) => void
   footer: ReactNode | string
+  label: string
 }
 
 export function Calendar({
   selectedDate,
   setSelectedDate,
+  label,
   footer,
 }: CalendarProps) {
   return (
     <DayPicker
+      aria-label={label}
       animate
       mode="range"
       selected={selectedDate}

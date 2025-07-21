@@ -5,10 +5,11 @@ import { MouseEvent } from 'react'
 
 interface SwitchProps {
   state: boolean
+  label: string
   onChange: (checked: boolean) => void
 }
 
-export default function Switch({ state, onChange }: SwitchProps) {
+export default function Switch({ state, onChange, label }: SwitchProps) {
   function handleClick(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
     onChange(!state)
@@ -16,6 +17,7 @@ export default function Switch({ state, onChange }: SwitchProps) {
 
   return (
     <button
+      aria-label={label}
       className={styles.switch}
       data-checked={state}
       aria-pressed={state}
