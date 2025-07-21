@@ -17,7 +17,6 @@ describe('MetricsTabs', () => {
 
   it('renders three buttons with texts "Diario", "Semanal", and "Mensual"', () => {
     render(<MetricsTabs />)
-    // Verify buttons by their text
     expect(screen.getByRole('button', { name: /diario/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /semanal/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /mensual/i })).toBeInTheDocument()

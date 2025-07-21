@@ -1,4 +1,4 @@
-import Icon from '../Icon/Icon'
+import Icon from '@/components/atoms/Icon/Icon'
 import styles from './Button.module.scss'
 import { ButtonProps } from './Button.types'
 
