@@ -15,6 +15,7 @@
 
   --white-color: #FFFFFF;
   --off-white-color: #FAFAFA;
+  --off-white-translucent: #FAFAFA66;
 
   --elevation-shadow-long: 0 2px 24px rgba(85,85,85,0.08);
   --elevation-shadow-short: 0 1px 0 var(--gray-color-lighter);
@@ -56,6 +57,7 @@
   --animation-easing-cubic: cubic-bezier(0.65, 0, 0.35, 1);
   --animation-easing-sine: cubic-bezier(0.37, 0, 0.63, 1);
 
+  --zindex-devicemodal: 5;
   --zindex-header: 4;
   --zindex-overlay: 3;
   --zindex-content: 2;

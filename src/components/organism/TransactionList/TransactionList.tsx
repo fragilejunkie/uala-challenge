@@ -1,13 +1,14 @@
 'use client'
 
 import styles from './TransactionList.module.scss'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { TransactionListProps } from './TransactionList.types'
 import { useTransactionFilters } from '@/lib/context/TransactionsFilterContext'
 import TransactionListHeader from '@/components/molecule/TransactionListHeader/TransactionListHeader'
 import TransactionListFilterPane from '@/components/molecule/TransactionListFilterPane/TransactionListFilterPane'
 import NoResults from '@/components/atoms/NoResults/NoResults'
 import TransactionRow from '@/components/atoms/TransactionRow/TransactionRow'
+import { useScrollLock } from '@/lib/hooks/useScrollLock'
 
 export default function TransactionList({ metadata }: TransactionListProps) {
   const [showFilters, setShowFilters] = useState(false)
@@ -17,13 +18,7 @@ export default function TransactionList({ metadata }: TransactionListProps) {
     setShowFilters((prev) => !prev)
   }
 
-  useEffect(() => {
-    if (showFilters) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
-  }, [showFilters])
+  useScrollLock(showFilters)
 
   return (
     <>

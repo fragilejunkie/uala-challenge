@@ -2,6 +2,7 @@ import styles from './page.module.scss'
 import { getTransactions } from '@/lib/getTransactions'
 import TransactionList from '@/components/organism/TransactionList/TransactionList'
 import MetricsContainer from '@/components/organism/MetricsContainer/MetricsContainer'
+import DeviceChecker from '@/components/organism/DeviceChecker/DeviceChecker'
 import Header from '@/components/molecule/Header/Header'
 import { TransactionFilterProvider } from '@/lib/context/TransactionsFilterContext'
 
@@ -10,6 +11,7 @@ export default async function Home() {
 
   return (
     <div className={styles.page}>
+      <DeviceChecker />
       <Header />
       <main className={styles.main}>
         <TransactionFilterProvider transactions={transactions}>

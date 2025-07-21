@@ -1,0 +1,16 @@
+.deviceCheckerContainer {
+  display: flex;
+  position: sticky;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-xl);
+  z-index: var(--zindex-devicemodal);
+  backdrop-filter: blur(10px);
+  background: var(--off-white-translucent);
+  height: 100dvh;
+}
